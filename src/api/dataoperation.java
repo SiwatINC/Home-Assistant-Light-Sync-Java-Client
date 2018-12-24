@@ -11,7 +11,7 @@ public class dataoperation {
 		Properties setting = new Properties();
 		OutputStream writer = null;
 		try {
-			writer = new FileOutputStream("config.properties");
+			writer = new FileOutputStream("halsconf/"+key);
 			setting.setProperty(key, data);
 			setting.store(writer, null);
 			writer.close();
@@ -25,7 +25,7 @@ public class dataoperation {
 		Properties setting = new Properties();
 		InputStream reader = null;
 		try {
-			reader = new FileInputStream("config.properties");
+			reader = new FileInputStream("halsconf/"+key);
 			setting.load(reader);
 			String data = new String();
 			data = setting.getProperty(key);

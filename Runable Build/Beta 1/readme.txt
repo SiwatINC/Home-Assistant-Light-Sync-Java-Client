@@ -1,0 +1,1 @@
+halsconf folder must exist in the same folder as the jar file or the configuration you made will not be saved

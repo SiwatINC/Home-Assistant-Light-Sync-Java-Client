@@ -1,0 +1,1 @@
+halsconf folder must exist in the directory of the halightsync.jar
