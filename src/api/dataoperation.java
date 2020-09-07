@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
-
+//The FileStreamer should READ/WRITE a JSON object instead of a seperate file in a folder.
 public class dataoperation {
 	public static boolean store(String data,String key) {
 		Properties setting = new Properties();

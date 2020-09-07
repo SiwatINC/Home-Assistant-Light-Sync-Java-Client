@@ -1,8 +1,8 @@
 package object;
 
 public class color {
-	public static double red;
-	public static double green;
-	public static double blue;
-	public static long pixelcount;
+	public double red = 0.0;
+	public double green = 0.0;
+	public double blue = 0.0;
+	public long pixelcount = 0;
 }

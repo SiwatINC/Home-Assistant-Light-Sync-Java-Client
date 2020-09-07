@@ -43,8 +43,8 @@ public class analyzescreen {
 	public static object.color decodecolor(int[] color) {
 		object.color decodedcolor = new object.color();
 		decodedcolor.red = ((255.0) * color[0]) / color[3];
-		object.color.green = (255.0) * color[1] / color[3];
-		object.color.blue = (255.0) * color[2] / color[3];
+		decodedcolor.green = (255.0) * color[1] / color[3];
+		decodedcolor.blue = (255.0) * color[2] / color[3];
 		return decodedcolor;
 	}
 	public static object.screen getscreensize(){

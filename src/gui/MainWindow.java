@@ -1,5 +1,5 @@
 package gui;
-
+import org.json.simple.JSONObject;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -217,16 +217,18 @@ public class MainWindow {
 		JButton StartButton = new JButton("Start");
 		String topic = api.dataoperation.retrieve("topic");
 		class analyzerfunction extends Thread {
+			@SuppressWarnings("unchecked")
 			public void run() {
 				while (running == 1) {
 					object.color colordata = new object.color();
 					colordata = api.analyzescreen.decodecolor(
 							api.analyzescreen.getcolor(Integer.parseInt(api.dataoperation.retrieve("quality")),
 									api.analyzescreen.getscreensize().width, api.analyzescreen.getscreensize().height));
-					RValueLabel.setText("R:"+Math.round(colordata.red));
-					GValueLabel.setText("G:"+Math.round(colordata.green));
-					BValueLabel.setText("B:"+Math.round(colordata.blue));
-					api.mqtt.publish("R"+Math.round(colordata.red)+"G"+Math.round(colordata.green)+"B"+Math.round(colordata.blue), topic, 2);
+					JSONObject temp_color = new JSONObject();
+					temp_color.put("R", Math.round(colordata.red));
+					temp_color.put("G", Math.round(colordata.green));
+					temp_color.put("B", Math.round(colordata.blue));
+					api.mqtt.publish(temp_color.toString(), topic, 2);
 					yield();
 					try {
 						Thread.sleep(Integer.parseInt(api.dataoperation.retrieve("pushingrate")));
