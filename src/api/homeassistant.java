@@ -8,6 +8,7 @@ import org.json.simple.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 public class homeassistant {
+	public boolean debug = false;
 	public String uri = null;
 	public String token = null;
 	public String auth_user = null;
@@ -24,12 +25,8 @@ public class homeassistant {
 			HttpRequest httpreq = HttpRequest.newBuilder().uri(URI.create(uri+path))
 					.header("authorization", "Bearer "+token).build();
 			response = this.http.send(httpreq,HttpResponse.BodyHandlers.ofString());
-		} catch (IOException e) {
-			//e.printStackTrace();
-		} catch (InterruptedException e) {
-			//e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			//e.printStackTrace();
+		} catch (IOException | IllegalArgumentException | InterruptedException e ) {
+			if(this.debug)e.printStackTrace();
 		}
 		//Parse the response to JSON
 		try {
@@ -37,7 +34,32 @@ public class homeassistant {
 		
 			return (JSONObject) parser.parse(response.body());
 		} catch (Exception e) {
-			//e.printStackTrace();
+			if(this.debug)e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	//HASS GET Function | Pipe to HTTPClient GET Request
+	public JSONArray HassGetArray(String path) {
+		//Trim out trailing / from URL
+		if (uri.endsWith("/"))uri = uri.substring(0, uri.length() - 1);
+		HttpResponse<String> response = null;
+		//Make a HTTP(S) request
+		try {
+			HttpRequest httpreq = HttpRequest.newBuilder().uri(URI.create(uri+path))
+					.header("authorization", "Bearer "+token).build();
+			response = this.http.send(httpreq,HttpResponse.BodyHandlers.ofString());
+		} catch (IOException | IllegalArgumentException | InterruptedException e ) {
+			if(this.debug)e.printStackTrace();
+		}
+		//Parse the response to JSON
+		try {
+			JSONParser parser = new JSONParser();
+		
+			return (JSONArray) parser.parse(response.body());
+		} catch (Exception e) {
+			if(this.debug)e.printStackTrace();
 			return null;
 		}
 		
@@ -55,8 +77,8 @@ public class homeassistant {
 	}
 	
 	public object.light[] getLights() {
-		JSONObject a = HassGet("/api/states");
+		JSONArray a = HassGetArray("/api/states");
 		System.out.println(a);
-		return null;
+		return new object.light[0];
 	}
 }
