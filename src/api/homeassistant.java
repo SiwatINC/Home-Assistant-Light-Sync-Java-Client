@@ -25,18 +25,19 @@ public class homeassistant {
 					.header("authorization", "Bearer "+token).build();
 			response = this.http.send(httpreq,HttpResponse.BodyHandlers.ofString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		//Parse the response to JSON
 		try {
 			JSONParser parser = new JSONParser();
+		
 			return (JSONObject) parser.parse(response.body());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		
